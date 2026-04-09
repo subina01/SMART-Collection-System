@@ -1,13 +1,15 @@
 # ── Ignore everything at root by default ─────────────────────────────────────
 /*
 
-# ── Allow only the project folders ───────────────────────────────────────────
+# ── Allow only the backend project folders ───────────────────────────────────
 !/.gitignore
 !/CollectorApp/
 !/CollectorApp.Core/
 !/CollectorApp.Application/
 !/CollectorApp.Infrastructure/
-!/collector-app-frontend/
+
+# ── Exclude frontend (maintained in a separate repository) ────────────────────
+/collector-app-frontend/
 
 # ── .NET build artifacts ──────────────────────────────────────────────────────
 **/bin/
@@ -17,8 +19,3 @@
 
 # ── Sensitive / local config ──────────────────────────────────────────────────
 **/appsettings.Development.json
-
-# ── Frontend ──────────────────────────────────────────────────────────────────
-collector-app-frontend/node_modules/
-collector-app-frontend/dist/
-collector-app-frontend/.env*
