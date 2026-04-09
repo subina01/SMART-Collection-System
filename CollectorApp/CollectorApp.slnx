@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../CollectorApp.Application/CollectorApp.Application.csproj" />
+  <Project Path="../CollectorApp.Core/CollectorApp.Core.csproj" />
+  <Project Path="../CollectorApp.Infrastructure/CollectorApp.Infrastructure.csproj" />
+  <Project Path="CollectorApp.API.csproj" />
+</Solution>
