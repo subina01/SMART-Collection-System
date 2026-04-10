@@ -7,6 +7,7 @@ import { User, Lock, AlertCircle, Eye, EyeOff, Landmark, ShieldCheck } from 'luc
 import { login } from '@/api/auth.api';
 import { useAuthStore } from '@/store/auth.store';
 import { getErrorMessage } from '@/utils/error';
+import { APP_NAME, APP_TAGLINE, ROUTES } from '@/constants';
 
 const schema = z.object({
   userId:   z.string().min(1, 'User ID is required').max(50),
@@ -27,14 +28,14 @@ const LoginPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
+  if (isAuthenticated) return <Navigate to={ROUTES.DASHBOARD} replace />;
 
   const onSubmit = async (values: FormValues) => {
     setServerError('');
     try {
       const res = await login(values);
       storeLogin(res.token, res.userId);
-      navigate('/dashboard');
+      navigate(ROUTES.DASHBOARD);
     } catch (err) {
       setServerError(getErrorMessage(err, 'Invalid credentials. Please try again.'));
     }
@@ -72,10 +73,10 @@ const LoginPage = () => {
               <Landmark className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <h1 className="text-lg font-bold tracking-tight text-white">
-              SMART Collection System
+              {APP_NAME}
             </h1>
             <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/30">
-              Revenue Management Platform
+              {APP_TAGLINE}
             </p>
           </div>
 

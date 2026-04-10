@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Building2, Landmark } from 'lucide-react';
+import { APP_NAME, APP_VERSION, ROUTES } from '@/constants';
 
 const navItems = [
-  { to: '/dashboard',     label: 'Dashboard',    icon: LayoutDashboard },
-  { to: '/organizations', label: 'Organizations', icon: Building2 },
+  { to: ROUTES.DASHBOARD,     label: 'Dashboard',    icon: LayoutDashboard },
+  { to: ROUTES.ORGANIZATIONS, label: 'Organizations', icon: Building2 },
 ];
 
 const Sidebar = () => (
@@ -15,7 +16,7 @@ const Sidebar = () => (
         <Landmark className="h-5 w-5 text-white" strokeWidth={1.5} />
       </div>
       <div>
-        <p className="text-sm font-semibold leading-none text-white">SMART Collection</p>
+        <p className="text-sm font-semibold leading-none text-white">{APP_NAME}</p>
         <p className="mt-0.5 text-[10px] text-white/30">Management Portal</p>
       </div>
     </div>
@@ -50,7 +51,7 @@ const Sidebar = () => (
 
     {/* Footer */}
     <div className="border-t border-white/[0.06] px-4 py-3">
-      <p className="text-center text-[10px] text-white/15">v0.1.0 · SMART Collection System</p>
+      <p className="text-center text-[10px] text-white/15">{APP_VERSION} · {APP_NAME}</p>
     </div>
   </aside>
 );

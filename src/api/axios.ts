@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useAuthStore } from '@/store/auth.store';
+import { API_BASE_URL, ROUTES } from '@/constants';
 
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -21,7 +22,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout();
-      window.location.href = '/login';
+      window.location.href = ROUTES.LOGIN;
     }
     return Promise.reject(error);
   },

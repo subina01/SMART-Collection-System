@@ -6,10 +6,11 @@ import DashboardPage from '@/features/dashboard/DashboardPage';
 import OrganizationListPage from '@/features/organizations/OrganizationListPage';
 import OrganizationFormPage from '@/features/organizations/OrganizationFormPage';
 import OrganizationDetailPage from '@/features/organizations/OrganizationDetailPage';
+import { ROUTES } from '@/constants';
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: ROUTES.LOGIN,
     element: <LoginPage />,
   },
   {
@@ -18,10 +19,10 @@ const router = createBrowserRouter([
       {
         element: <AppLayout />,
         children: [
-          { path: '/', element: <Navigate to="/dashboard" replace /> },
-          { path: '/dashboard', element: <DashboardPage /> },
-          { path: '/organizations', element: <OrganizationListPage /> },
-          { path: '/organizations/new', element: <OrganizationFormPage /> },
+          { path: '/', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
+          { path: ROUTES.DASHBOARD, element: <DashboardPage /> },
+          { path: ROUTES.ORGANIZATIONS, element: <OrganizationListPage /> },
+          { path: ROUTES.ORGANIZATION_NEW, element: <OrganizationFormPage /> },
           { path: '/organizations/:id', element: <OrganizationDetailPage /> },
           { path: '/organizations/:id/edit', element: <OrganizationFormPage /> },
         ],

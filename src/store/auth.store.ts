@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { AUTH_STORE_KEY } from '@/constants';
 
 interface AuthState {
   token: string | null;
@@ -23,7 +24,7 @@ export const useAuthStore = create<AuthState>()(
         set({ token: null, userId: null, isAuthenticated: false }),
     }),
     {
-      name: 'collector-auth',
+      name: AUTH_STORE_KEY,
     },
   ),
 );
