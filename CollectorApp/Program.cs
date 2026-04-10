@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +31,13 @@ builder.Services.AddEndpointsApiExplorer();
 // -------------------- Swagger --------------------
 builder.Services.AddSwaggerGen(options =>
 {
-    
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CollectorApp API",
+        Version = "v1",
+        Description = "REST API for the SMART Collection System — manages organizations and authentication."
+    });
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -38,7 +45,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter JWT token"
+        Description = "Enter your JWT token. Example: **eyJhbGci...**"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -57,6 +64,10 @@ builder.Services.AddSwaggerGen(options =>
     });
 
     options.OperationFilter<AuthorizeOperationFilter>();
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 
 // -------------------- Authentication --------------------
