@@ -1,15 +1,13 @@
-﻿using CollectorApp.Application.Interfaces;
-using CollectorApp.Application.Services;
+﻿using CollectorApp.Application.Services;
 using CollectorApp.Core.Interfaces;
 using CollectorApp.Infrastructure.Persistence;
 using CollectorApp.Infrastructure.Repositories;
 using CollectorApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models; 
-using Swashbuckle.AspNetCore.SwaggerGen; 
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // -------------------- CORS --------------------
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("FrontendDev", policy =>
+    options.AddPolicy(AppConstants.Cors.FrontendPolicy, policy =>
     {
         policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
@@ -72,17 +70,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
 
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration[AppConstants.Jwt.Issuer],
+            ValidAudience = builder.Configuration[AppConstants.Jwt.Audience],
 
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                Encoding.UTF8.GetBytes(builder.Configuration[AppConstants.Jwt.Key]!))
         };
     });
 
 // -------------------- Database --------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(AppConstants.ConnectionStrings.Default)));
 
 // -------------------- Dependency Injection --------------------
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -105,7 +103,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("FrontendDev");
+app.UseCors(AppConstants.Cors.FrontendPolicy);
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,8 +1,6 @@
-using CollectorApp.Application.Common;
 using CollectorApp.Application.DTOs;
 using CollectorApp.Application.Interfaces;
 using CollectorApp.Core.Exceptions;
-using CollectorApp.Core.Interfaces;
 using CollectorApp.Core.ValueObjects;
 
 namespace CollectorApp.Application.Services;

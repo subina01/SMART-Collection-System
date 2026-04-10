@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using CollectorApp.Application.Common;
 using CollectorApp.Application.Interfaces;
 using CollectorApp.Core.Entities;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,7 @@ public sealed class JwtTokenService : ITokenService
     public string GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+            Encoding.UTF8.GetBytes(_configuration[AppConstants.Jwt.Key]!));
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -31,11 +32,11 @@ public sealed class JwtTokenService : ITokenService
         };
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
+            issuer: _configuration[AppConstants.Jwt.Issuer],
+            audience: _configuration[AppConstants.Jwt.Audience],
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(
-                double.Parse(_configuration["Jwt:ExpiresInMinutes"]!)),
+                double.Parse(_configuration[AppConstants.Jwt.ExpiresInMinutes]!)),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

@@ -1,8 +1,6 @@
-using CollectorApp.Application.Common;
 using CollectorApp.Application.DTOs.Organization;
 using CollectorApp.Application.Interfaces;
 using CollectorApp.Core.Entities;
-using CollectorApp.Core.Interfaces;
 
 namespace CollectorApp.Application.Services;
 
@@ -91,7 +89,7 @@ public sealed class OrganizationService : IOrganizationService
                 request.Email, request.Qty, request.Active);
 
             await _repository.AddAsync(organization, cancellationToken);
-            return Result<MessageResponse>.Success(new MessageResponse { Message = "Organization created successfully" });
+            return Result<MessageResponse>.Success(new MessageResponse { Message = AppConstants.Messages.OrgCreated });
         }
         catch (Exception ex)
         {
@@ -117,7 +115,7 @@ public sealed class OrganizationService : IOrganizationService
                 request.Email, request.Qty, request.Active);
 
             await _repository.UpdateAsync(organization, cancellationToken);
-            return Result<MessageResponse>.Success(new MessageResponse { Message = "Organization updated successfully" });
+            return Result<MessageResponse>.Success(new MessageResponse { Message = AppConstants.Messages.OrgUpdated });
         }
         catch (Exception ex)
         {
@@ -135,7 +133,7 @@ public sealed class OrganizationService : IOrganizationService
 
             organization.Deactivate();
             await _repository.UpdateAsync(organization, cancellationToken);
-            return Result<MessageResponse>.Success(new MessageResponse { Message = "Organization deactivated successfully" });
+            return Result<MessageResponse>.Success(new MessageResponse { Message = AppConstants.Messages.OrgDeactivated });
         }
         catch (Exception ex)
         {

@@ -1,6 +1,4 @@
-using CollectorApp.Application.Common;
 using CollectorApp.Application.Interfaces;
-using CollectorApp.Core.Interfaces;
 
 namespace CollectorApp.Application.Services;
 

@@ -1,7 +1,3 @@
-using CollectorApp.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace CollectorApp.Controllers;
 
 [ApiController]

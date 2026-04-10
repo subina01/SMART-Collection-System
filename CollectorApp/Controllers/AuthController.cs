@@ -1,6 +1,4 @@
 using CollectorApp.Application.DTOs;
-using CollectorApp.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CollectorApp.Controllers;
 
